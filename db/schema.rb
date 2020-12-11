@@ -10,18 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_144432) do
+ActiveRecord::Schema.define(version: 2020_12_11_160752) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "author_id"
+    t.text "body"
+    t.integer "photo_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "follow_requests", force: :cascade do |t|
+    t.integer "recipient_id"
+    t.integer "sender_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "fan_id"
+    t.integer "photo_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.text "caption"
+    t.integer "comments_count"
+    t.string "image"
+    t.integer "likes_count"
+    t.integer "owner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.string "username"
     t.integer "comments_count"
+    t.string "email"
     t.integer "likes_count"
+    t.string "password_digest"
     t.boolean "private"
-    t.integer "sent_follow_requests_count"
-    t.integer "received_follow_requests_count"
-    t.integer "own_photos_count"
+    t.string "username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
